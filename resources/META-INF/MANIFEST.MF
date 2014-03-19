@@ -1,0 +1,6 @@
+MIDlet-Name: FRC2014Java_FallbackCode
+MIDlet-Version: 1.0.0
+MIDlet-Vendor: FIRST
+MIDlet-1: FRC2014Java, , FRC2014Java
+MicroEdition-Profile: IMP-1.0
+MicroEdition-Configuration: CLDC-1.1
