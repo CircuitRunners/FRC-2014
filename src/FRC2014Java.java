@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Watchdog;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
 import edu.wpi.first.wpilibj.camera.AxisCameraException;
-//import edu.wpi.first.wpilibj.camera.AxisCameraException;
 import edu.wpi.first.wpilibj.image.*;
 import edu.wpi.first.wpilibj.image.NIVision.MeasurementType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -167,11 +166,13 @@ public class FRC2014Java extends SimpleRobot {
 
     public void autonomous() {
         TargetReport target = new TargetReport();
-	int verticalTargets[] = new int[MAX_PARTICLES];
-	int horizontalTargets[] = new int[MAX_PARTICLES];
-	int verticalTargetCount, horizontalTargetCount;
+		int verticalTargets[] = new int[MAX_PARTICLES];
+		int horizontalTargets[] = new int[MAX_PARTICLES];
+		int verticalTargetCount, horizontalTargetCount;
         
-        while (isAutonomous() && isEnabled()) {
+		boolean hasFired = false;
+		
+        while (isAutonomous() && isEnabled() && !hasFired) {
             try {
                 /**
                  * Do the image capture with the camera and apply the algorithm described above. This
@@ -182,7 +183,7 @@ public class FRC2014Java extends SimpleRobot {
                 ColorImage image = camera.getImage();     // comment if using stored images
                 image.write("/image.jpg");
                 //ColorImage image;                           // next 2 lines read image from flash on cRIO
-                image = new RGBImage("/testImage.jpg");		// get the sample image from the cRIO flash
+                //image = new RGBImage("/testImage.jpg");		// get the sample image from the cRIO flash
                 BinaryImage thresholdImage = image.thresholdHSV(85, 255, 100, 255, 100, 255);   // keep only green objects
                 thresholdImage.write("/threshold.bmp");
                 BinaryImage filteredImage = thresholdImage.particleFilter(cc);           // filter out small particles
@@ -274,6 +275,7 @@ public class FRC2014Java extends SimpleRobot {
                                             System.out.println("Hot target located");
                                             System.out.println("Distance: " + distance);
                                             cam.set(-1);
+											hasFired = true;
                                     } else {
                                             System.out.println("No hot target present");
                                             System.out.println("Distance: " + distance);
@@ -307,6 +309,7 @@ public class FRC2014Java extends SimpleRobot {
         double coefficientOfDriveDirection = 1;
         
         while (isOperatorControl() && isEnabled()) {
+			
             //Watchdog
             dog.feed();
             
