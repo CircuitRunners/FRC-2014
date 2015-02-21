@@ -10,4 +10,6 @@ logic for a cam to rotate, release the winch, and stop in the starting position,
 
 Greater detail is given in the comments of the code.
 
---Akilan--FRC Programming Lead--2014--
+Akilan Narayanaswamy
+FRC Programming Lead
+2014
